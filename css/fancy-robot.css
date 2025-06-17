@@ -22,7 +22,6 @@
 .robot-eye-right {
   width: 80px;
   height: 80px;
-
   border: 4px solid #0ff;
   border-radius: 50%;
   box-shadow: 0 0 15px #0ff, inset 0 0 10px #0ff;
@@ -43,6 +42,10 @@
   left: 22px;
 }
 
+.robot-eye-left::after {
+  animation: move-pupil 1.5s infinite ease-in-out;
+}
+
 .robot-eye-left {
   left: 70px;
   background: radial-gradient(circle, #000000, #0ff 30%);
@@ -53,18 +56,26 @@
   background-image: url(https://i.redd.it/anyone-interested-in-making-the-animation-for-the-matrix-v0-4904jjjxjlja1.png?width=4300&format=png&auto=webp&s=c91827571a4af6cd91be8d13b108800209b97e32);
   background-position: center;
   background-size: cover;
+  transition: transform 3s ease-in-out, border 3s ease-in-out,
+    box-shadow 3s ease-in-out;
+}
+
+.robot-eye-right:hover {
+  transform: scale(1.85);
+  border: 1px solid red;
+  box-shadow: 0 0 10px 10px rgba(255, 0, 0, 0.322);
 }
 
 .robot-nose {
   position: absolute;
   top: 150px;
   left: 50%;
-  transform: translateX(-50%) rotate(45deg);
   width: 30px;
   height: 30px;
   background: linear-gradient(45deg, #ffa600, #ff6a00);
   border: 2px solid #fff;
   box-shadow: 0 0 10px #ff6a00;
+  animation: move-nose 5s infinite linear;
 }
 
 .robot-mouth {
@@ -100,6 +111,7 @@
   transition: transform 0.3s ease, background-color 0.3s ease;
   width: 100%;
   height: 100%;
+  animation: rotate 1.5s infinite ease-in-out;
 }
 
 .robot-tooth:nth-child(odd) {
@@ -137,6 +149,7 @@
   position: absolute;
   top: 120px;
   box-shadow: 0 0 10px #fff;
+  animation: rotate-ears 2s infinite ease-in-out;
 }
 
 .robot-ear-left {
@@ -158,6 +171,11 @@
   gap: 6px;
   align-items: flex-end;
   height: 100px;
+  transition: all 1.5s ease-in-out;
+}
+
+.robot-hair-style div:hover {
+  opacity: 0;
 }
 
 .robot-hair-one,
@@ -200,15 +218,74 @@
 }
 
 .robot-hair-style div {
-  animation: pulse 1.5s infinite ease-in-out;
+  animation: pulse 1.5s infinite ease-in-out, rotate 1.5s infinite ease-in-out;
 }
 
 @keyframes pulse {
   0%,
   100% {
-    transform: scaleY(1);
+    transform: scaleY(1), rotate();
   }
   50% {
     transform: scaleY(1.2);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0%);
+  }
+
+  to {
+    transform: rotate(100%);
+  }
+}
+
+@keyframes rotate-ears {
+  0% {
+    transform: rotate(0);
+  }
+
+  33% {
+    transform: rotate(0.15turn);
+  }
+
+  66% {
+    transform: rotate(-0.15turn);
+  }
+
+  100% {
+    transform: rotate(0);
+  }
+}
+
+@keyframes move-nose {
+  0% {
+    transform: translate3d(-20px, 5px, 0);
+  }
+
+  50% {
+    transform: translate3d(-40px, -10px, 0);
+  }
+
+  100% {
+    transform: translate3d(-20px, 5px, 0);
+  }
+}
+
+@keyframes move-pupil {
+  0% {
+    top: 0;
+    left: 0;
+  }
+
+  50% {
+    top: 22px;
+    left: 22px;
+  }
+
+  100% {
+    top: 0;
+    left: 0;
   }
 }
